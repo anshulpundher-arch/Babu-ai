@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Babu AI</title>
+
+  <style>
+    body {
+      margin: 0;
+      background: #050505;
+      color: white;
+      font-family: Arial, sans-serif;
+      text-align: center;
+    }
+
+    .container {
+      padding: 40px 20px;
+    }
+
+    h1 {
+      font-size: 45px;
+      margin-bottom: 10px;
+    }
+
+    #status {
+      color: #00e5ff;
+      margin: 20px;
+    }
+
+    #response {
+      font-size: 22px;
+      min-height: 60px;
+      margin: 30px 0;
+    }
+
+    button {
+      padding: 18px 35px;
+      border: none;
+      border-radius: 50px;
+      background: #00e5ff;
+      color: black;
+      font-size: 20px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    button:active {
+      transform: scale(0.95);
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="container">
+    <h1>🤖 BABU</h1>
+
+    <div id="status">Ready...</div>
+
+    <div id="response">
+      Hello! I am Babu.
+    </div>
+
+    <button onclick="startListening()">🎤 Talk to Babu</button>
+  </div>
+
+<script>
+
+const SpeechRecognition =
+  window.SpeechRecognition || window.webkitSpeechRecognition;
+
+let recognition;
+
+if (SpeechRecognition) {
+  recognition = new SpeechRecognition();
+  recognition.lang = "en-IN";
+  recognition.continuous = false;
+  recognition.interimResults = false;
+
+  recognition.onstart = function() {
+    document.getElementById("status").innerText =
+      "🎤 Listening...";
+  };
+
+  recognition.onresult = function(event) {
+
+    const command =
+      event.results[0][0].transcript.toLowerCase();
+
+    document.getElementById("status").innerText =
+      "You said: " + command;
+
+    processCommand(command);
+  };
+
+  recognition.onerror = function() {
+    document.getElementById("status").innerText =
+      "❌ Could not hear you";
+  };
+
+} else {
+  document.getElementById("status").innerText =
+    "Speech recognition not supported";
+}
+
+
+function startListening() {
+  if (recognition) {
+    recognition.start();
+  }
+}
+
+
+function speak(text) {
+
+  document.getElementById("response").innerText = text;
+
+  const speech = new SpeechSynthesisUtterance(text);
+
+  speech.lang = "en-IN";
+  speech.rate = 1;
+  speech.pitch = 1;
+
+  window.speechSynthesis.speak(speech);
+}
+
+
+function processCommand(command) {
+
+  if (
+    command.includes("hello babu") ||
+    command.includes("hey babu") ||
+    command.includes("babu")
+  ) {
+
+    speak("Yes sir, how can I help you?");
+
+  }
+
+  else if (command.includes("youtube")) {
+
+    speak("Opening YouTube");
+
+    setTimeout(function() {
+      window.open("https://www.youtube.com", "_blank");
+    }, 1000);
+
+  }
+
+  else if (command.includes("google")) {
+
+    speak("Opening Google");
+
+    setTimeout(function() {
+      window.open("https://www.google.com", "_blank");
+    }, 1000);
+
+  }
+
+  else if (command.includes("time")) {
+
+    const now = new Date();
+
+    speak(
+      "Sir, the time is " +
+      now.toLocaleTimeString("en-IN")
+    );
+
+  }
+
+  else if (command.includes("date")) {
+
+    const now = new Date();
+
+    speak(
+      "Today is " +
+      now.toLocaleDateString("en-IN")
+    );
+
+  }
+
+  else {
+
+    speak(
+      "Sorry sir, I don't understand that command yet."
+    );
+
+  }
+}
+
+</script>
+
+</body>
+</html>
