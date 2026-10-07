@@ -128,17 +128,7 @@ function speak(text) {
 
 function processCommand(command) {
 
-  if (
-    command.includes("hello babu") ||
-    command.includes("hey babu") ||
-    command.includes("babu")
-  ) {
-
-    speak("Yes sir, how can I help you?");
-
-  }
-
-  else if (command.includes("youtube")) {
+  if (command.includes("youtube")) {
 
     speak("Opening YouTube");
 
@@ -177,6 +167,16 @@ function processCommand(command) {
       "Today is " +
       now.toLocaleDateString("en-IN")
     );
+
+  }
+
+  else if (
+    command.includes("hello babu") ||
+    command.includes("hey babu") ||
+    command.includes("babu")
+  ) {
+
+    speak("Yes sir, how can I help you?");
 
   }
 
