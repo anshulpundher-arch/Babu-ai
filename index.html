@@ -6,6 +6,7 @@
 <title>BABU AI</title>
 
 <style>
+
 *{
   margin:0;
   padding:0;
@@ -46,7 +47,8 @@ body::after{
   z-index:-1;
 }
 
-/* HEADER */
+
+/* ================= HEADER ================= */
 
 header{
   height:70px;
@@ -85,7 +87,8 @@ header{
   box-shadow:0 0 15px #00ff88;
 }
 
-/* MAIN */
+
+/* ================= MAIN ================= */
 
 .main{
   max-width:1250px;
@@ -97,7 +100,8 @@ header{
   padding:25px;
 }
 
-/* PANELS */
+
+/* ================= PANELS ================= */
 
 .panel{
   background:rgba(15,15,25,.72);
@@ -116,7 +120,8 @@ header{
   margin-bottom:18px;
 }
 
-/* QUICK COMMANDS */
+
+/* ================= COMMANDS ================= */
 
 .command{
   padding:14px;
@@ -141,7 +146,8 @@ header{
   font-size:20px;
 }
 
-/* AI CENTER */
+
+/* ================= AI CENTER ================= */
 
 .ai-area{
   display:flex;
@@ -150,7 +156,17 @@ header{
   justify-content:center;
   min-height:650px;
   position:relative;
+  transition:.3s;
 }
+
+.ai-area.listening{
+  box-shadow:
+    0 0 35px rgba(0,255,136,.15),
+    inset 0 0 40px rgba(0,255,136,.04);
+}
+
+
+/* ================= AI RINGS ================= */
 
 .ai-ring{
   width:330px;
@@ -161,9 +177,11 @@ header{
   align-items:center;
   justify-content:center;
   position:relative;
+
   box-shadow:
     0 0 30px rgba(168,85,247,.2),
     inset 0 0 35px rgba(0,234,255,.08);
+
   animation:pulse 4s infinite;
 }
 
@@ -188,30 +206,116 @@ header{
   animation:spin 20s linear infinite reverse;
 }
 
+
+/* ================= AVATAR ================= */
+
+.avatar-wrap{
+  width:245px;
+  height:245px;
+  position:relative;
+  border-radius:50%;
+}
+
 .ai-girl{
   width:245px;
   height:245px;
   border-radius:50%;
   object-fit:cover;
+
   border:3px solid rgba(255,255,255,.15);
+
   box-shadow:
     0 0 25px rgba(168,85,247,.6),
     0 0 80px rgba(0,234,255,.15);
+
   background:linear-gradient(135deg,#171122,#071c22);
+
+  transition:.3s;
 }
 
-/* If image fails */
+
+/* ================= MOUTH ANIMATION ================= */
+
+/*
+  Ye basic talking animation hai.
+  Babu ke speaking time par activate hogi.
+*/
+
+.mouth{
+  position:absolute;
+
+  left:50%;
+  top:68%;
+
+  width:22px;
+  height:7px;
+
+  transform:translateX(-50%) scaleY(.5);
+
+  border-radius:50%;
+
+  background:#ff5c9a;
+
+  box-shadow:
+    0 0 8px rgba(255,80,150,.7);
+
+  opacity:0;
+  pointer-events:none;
+}
+
+.talking .mouth{
+  opacity:1;
+  animation:mouthTalk .15s infinite alternate;
+}
+
+.talking .ai-girl{
+  animation:faceTalk .7s infinite ease-in-out;
+}
+
+@keyframes mouthTalk{
+
+  0%{
+    transform:translateX(-50%) scaleY(.35);
+  }
+
+  100%{
+    transform:translateX(-50%) scaleY(1.7);
+  }
+
+}
+
+@keyframes faceTalk{
+
+  0%,100%{
+    transform:scale(1);
+  }
+
+  50%{
+    transform:scale(1.008);
+  }
+
+}
+
+
+/* ================= PLACEHOLDER ================= */
 
 .avatar-placeholder{
   width:245px;
   height:245px;
   border-radius:50%;
+
   display:none;
+
   align-items:center;
   justify-content:center;
+
   font-size:80px;
+
   background:linear-gradient(145deg,#211233,#08262d);
 }
+
+
+/* ================= NAME ================= */
 
 .ai-name{
   margin-top:45px;
@@ -230,11 +334,16 @@ header{
   text-align:center;
 }
 
+
+/* ================= WAVE ================= */
+
 .wave{
   display:flex;
   align-items:center;
   justify-content:center;
+
   gap:4px;
+
   height:45px;
   margin-top:20px;
 }
@@ -242,22 +351,44 @@ header{
 .wave span{
   width:4px;
   height:15px;
+
   border-radius:5px;
+
   background:#a855f7;
+
   animation:wave 1s infinite ease-in-out;
 }
 
-.wave span:nth-child(2){animation-delay:.1s}
-.wave span:nth-child(3){animation-delay:.2s}
-.wave span:nth-child(4){animation-delay:.3s}
-.wave span:nth-child(5){animation-delay:.4s}
-.wave span:nth-child(6){animation-delay:.3s}
-.wave span:nth-child(7){animation-delay:.2s}
+.wave span:nth-child(2){
+  animation-delay:.1s;
+}
 
-/* CHAT */
+.wave span:nth-child(3){
+  animation-delay:.2s;
+}
+
+.wave span:nth-child(4){
+  animation-delay:.3s;
+}
+
+.wave span:nth-child(5){
+  animation-delay:.4s;
+}
+
+.wave span:nth-child(6){
+  animation-delay:.3s;
+}
+
+.wave span:nth-child(7){
+  animation-delay:.2s;
+}
+
+
+/* ================= CHAT ================= */
 
 .chat{
   height:390px;
+
   display:flex;
   flex-direction:column;
 }
@@ -270,62 +401,100 @@ header{
 
 .message{
   padding:12px 14px;
+
   border-radius:14px;
+
   margin:8px 0;
+
   max-width:90%;
+
   font-size:14px;
   line-height:1.5;
 }
 
 .babu{
   background:rgba(168,85,247,.12);
+
   border:1px solid rgba(168,85,247,.2);
 }
 
 .user{
   background:rgba(0,234,255,.08);
+
   border:1px solid rgba(0,234,255,.15);
+
   margin-left:auto;
 }
 
+
+/* ================= INPUT ================= */
+
 .chat-input{
   display:flex;
+
   gap:8px;
+
   margin-top:12px;
 }
 
 .chat-input input{
   flex:1;
+
   background:#0a0a12;
+
   border:1px solid rgba(255,255,255,.1);
+
   outline:none;
+
   border-radius:13px;
+
   padding:12px;
+
   color:white;
 }
 
 .send{
   border:none;
+
   width:45px;
+
   border-radius:13px;
+
   background:#8b5cf6;
+
   color:white;
+
   cursor:pointer;
 }
 
-/* VOICE */
+
+/* ================= VOICE BUTTON ================= */
 
 .voice-btn{
   width:65px;
   height:65px;
+
   border-radius:50%;
+
   border:1px solid rgba(255,255,255,.15);
-  background:linear-gradient(145deg,#8b5cf6,#5b21b6);
+
+  background:linear-gradient(
+    145deg,
+    #8b5cf6,
+    #5b21b6
+  );
+
   color:white;
+
   font-size:25px;
+
   cursor:pointer;
+
   margin-top:15px;
-  box-shadow:0 0 25px rgba(139,92,246,.45);
+
+  box-shadow:
+    0 0 25px rgba(139,92,246,.45);
+
   transition:.2s;
 }
 
@@ -333,12 +502,38 @@ header{
   transform:scale(1.08);
 }
 
-/* MEMORY */
+
+/* ================= LISTENING BUTTON ================= */
+
+.listening-btn{
+  animation:
+    listeningPulse 1s infinite;
+}
+
+@keyframes listeningPulse{
+
+  0%,100%{
+    box-shadow:
+      0 0 20px rgba(0,255,136,.4);
+  }
+
+  50%{
+    box-shadow:
+      0 0 45px rgba(0,255,136,.9);
+  }
+
+}
+
+
+/* ================= MEMORY ================= */
 
 .memory{
   padding:13px;
+
   border-radius:13px;
+
   background:rgba(255,255,255,.04);
+
   margin:8px 0;
 }
 
@@ -346,16 +541,24 @@ header{
   color:#777;
 }
 
-/* BUTTON */
+
+/* ================= BUTTON ================= */
 
 .small-btn{
   width:100%;
+
   padding:12px;
+
   border-radius:12px;
+
   border:1px solid rgba(255,255,255,.1);
+
   background:rgba(255,255,255,.05);
+
   color:white;
+
   cursor:pointer;
+
   margin-top:10px;
 }
 
@@ -363,33 +566,59 @@ header{
   border-color:#a855f7;
 }
 
-/* ANIMATION */
+
+/* ================= ANIMATION ================= */
 
 @keyframes spin{
-  from{transform:rotate(0deg)}
-  to{transform:rotate(360deg)}
+
+  from{
+    transform:rotate(0deg);
+  }
+
+  to{
+    transform:rotate(360deg);
+  }
+
 }
 
 @keyframes pulse{
-  0%,100%{transform:scale(1)}
-  50%{transform:scale(1.025)}
+
+  0%,100%{
+    transform:scale(1);
+  }
+
+  50%{
+    transform:scale(1.025);
+  }
+
 }
 
 @keyframes wave{
-  0%,100%{height:10px}
-  50%{height:32px}
+
+  0%,100%{
+    height:10px;
+  }
+
+  50%{
+    height:32px;
+  }
+
 }
 
-/* MOBILE */
+
+/* ================= MOBILE ================= */
 
 @media(max-width:900px){
+
   .main{
     grid-template-columns:1fr;
+
     padding:15px;
   }
 
   .ai-area{
     min-height:560px;
+
     order:-1;
   }
 
@@ -408,6 +637,11 @@ header{
     height:325px;
   }
 
+  .avatar-wrap{
+    width:200px;
+    height:200px;
+  }
+
   .ai-girl,
   .avatar-placeholder{
     width:200px;
@@ -421,407 +655,1212 @@ header{
   .ai-name{
     font-size:25px;
   }
+
 }
+
 </style>
 </head>
 
+
 <body>
 
+
+<!-- ================= HEADER ================= -->
+
 <header>
-  <div class="logo">BABU<span>AI</span></div>
+
+  <div class="logo">
+    BABU<span>AI</span>
+  </div>
 
   <div class="status">
+
     <div class="online"></div>
-    Babu is online
+
+    <span id="onlineText">
+      Babu is online
+    </span>
+
   </div>
+
 </header>
+
 
 
 <div class="main">
 
-  <!-- LEFT -->
 
-  <div>
+<!-- ================= LEFT SIDE ================= -->
 
-    <div class="panel">
-      <div class="panel-title">Quick Commands</div>
+<div>
 
-      <div class="command" onclick="youtube()">
-        <div class="command-icon">▶️</div>
-        <div>YouTube</div>
+
+  <div class="panel">
+
+    <div class="panel-title">
+      Quick Commands
+    </div>
+
+
+    <div class="command"
+         onclick="youtube()">
+
+      <div class="command-icon">
+        ▶️
       </div>
 
-      <div class="command" onclick="google()">
-        <div class="command-icon">🔎</div>
-        <div>Google Search</div>
-      </div>
-
-      <div class="command" onclick="showTime()">
-        <div class="command-icon">🕐</div>
-        <div>Time & Date</div>
-      </div>
-
-      <div class="command" onclick="music()">
-        <div class="command-icon">🎵</div>
-        <div>Music</div>
-      </div>
-
-      <div class="command" onclick="aiChat()">
-        <div class="command-icon">🧠</div>
-        <div>AI Chat</div>
+      <div>
+        YouTube
       </div>
 
     </div>
 
-    <div class="panel" style="margin-top:20px">
 
-      <div class="panel-title">Memories</div>
+    <div class="command"
+         onclick="google()">
 
-      <div class="memory">
-        <b>💜 First Memory</b>
-        <br>
-        <small>Something special...</small>
+      <div class="command-icon">
+        🔎
       </div>
 
-      <div class="memory">
-        <b>📸 My Photos</b>
-        <br>
-        <small>Your memories</small>
+      <div>
+        Google Search
       </div>
-
-      <button class="small-btn" onclick="addMemory()">
-        + Add Memory
-      </button>
 
     </div>
+
+
+    <div class="command"
+         onclick="showTime()">
+
+      <div class="command-icon">
+        🕐
+      </div>
+
+      <div>
+        Time & Date
+      </div>
+
+    </div>
+
+
+    <div class="command"
+         onclick="music()">
+
+      <div class="command-icon">
+        🎵
+      </div>
+
+      <div>
+        Music
+      </div>
+
+    </div>
+
+
+    <div class="command"
+         onclick="aiChat()">
+
+      <div class="command-icon">
+        🧠
+      </div>
+
+      <div>
+        AI Chat
+      </div>
+
+    </div>
+
 
   </div>
 
 
-  <!-- CENTER -->
 
-  <div class="panel ai-area">
+  <div class="panel"
+       style="margin-top:20px">
 
-    <div class="ai-ring">
+    <div class="panel-title">
+      Memories
+    </div>
 
-      <!-- Replace this image URL with your AI girl image -->
-      <img
-        class="ai-girl"
-        id="girl"
-        src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=600"
-        alt="Babu AI"
-        onerror="this.style.display='none';document.getElementById('placeholder').style.display='flex'"
-      >
 
-      <div id="placeholder" class="avatar-placeholder">
-        👩🏻
-      </div>
+    <div class="memory">
+
+      <b>
+        💜 First Memory
+      </b>
+
+      <br>
+
+      <small>
+        Something special...
+      </small>
 
     </div>
 
-    <div class="ai-name">
-      BABU <span>AI</span>
+
+    <div class="memory">
+
+      <b>
+        📸 My Photos
+      </b>
+
+      <br>
+
+      <small>
+        Your memories
+      </small>
+
     </div>
 
-    <div class="ai-message" id="statusText">
-      Hello! I'm Babu. How can I help you?
-    </div>
 
-    <div class="wave">
-      <span></span>
-      <span></span>
-      <span></span>
-      <span></span>
-      <span></span>
-      <span></span>
-      <span></span>
-    </div>
+    <button
+      class="small-btn"
+      onclick="addMemory()">
 
-    <button class="voice-btn" onclick="startVoice()" title="Talk to Babu">
-      🎤
+      + Add Memory
+
     </button>
 
-  </div>
-
-
-  <!-- RIGHT -->
-
-  <div>
-
-    <div class="panel chat">
-
-      <div class="panel-title">Babu Chat</div>
-
-      <div class="messages" id="messages">
-
-        <div class="message babu">
-          👩 Hello! I'm Babu AI. Talk to me.
-        </div>
-
-      </div>
-
-      <div class="chat-input">
-
-        <input
-          id="userInput"
-          type="text"
-          placeholder="Talk to Babu..."
-          onkeydown="if(event.key==='Enter') sendMessage()"
-        >
-
-        <button class="send" onclick="sendMessage()">
-          ➤
-        </button>
-
-      </div>
-
-    </div>
-
-
-    <div class="panel" style="margin-top:20px">
-
-      <div class="panel-title">System</div>
-
-      <div class="memory">
-        🟢 <b>AI Core</b>
-        <br>
-        <small>Online</small>
-      </div>
-
-      <div class="memory">
-        🎤 <b>Voice System</b>
-        <br>
-        <small id="voiceStatus">Ready</small>
-      </div>
-
-      <div class="memory">
-        🧠 <b>Memory</b>
-        <br>
-        <small>Active</small>
-      </div>
-
-      <button class="small-btn" onclick="settings()">
-        ⚙️ Settings
-      </button>
-
-    </div>
 
   </div>
+
 
 </div>
 
 
+
+<!-- ================= CENTER ================= -->
+
+<div class="panel ai-area"
+     id="aiArea">
+
+
+  <div class="ai-ring">
+
+
+    <div class="avatar-wrap"
+         id="avatarWrap">
+
+
+      <img
+
+        class="ai-girl"
+
+        id="girl"
+
+        src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=600"
+
+        alt="Babu AI"
+
+        onerror="
+          this.style.display='none';
+          document.getElementById('placeholder').style.display='flex'
+        "
+
+      >
+
+
+      <!-- Talking mouth -->
+
+      <div class="mouth"></div>
+
+
+    </div>
+
+
+    <div
+      id="placeholder"
+      class="avatar-placeholder">
+
+      👩🏻
+
+    </div>
+
+
+  </div>
+
+
+
+  <div class="ai-name">
+
+    BABU <span>AI</span>
+
+  </div>
+
+
+  <div
+    class="ai-message"
+    id="statusText">
+
+    Starting Babu...
+
+  </div>
+
+
+  <div class="wave">
+
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+
+  </div>
+
+
+  <button
+    class="voice-btn"
+    id="voiceButton"
+    onclick="startVoice()"
+    title="Talk to Babu">
+
+    🎤
+
+  </button>
+
+
+</div>
+
+
+
+<!-- ================= RIGHT SIDE ================= -->
+
+<div>
+
+
+  <div class="panel chat">
+
+
+    <div class="panel-title">
+      Babu Chat
+    </div>
+
+
+    <div
+      class="messages"
+      id="messages">
+
+
+      <div class="message babu">
+
+        👩 Hello! I'm Babu AI.
+
+        <br>
+
+        I'm listening. Talk to me. 💜
+
+      </div>
+
+
+    </div>
+
+
+    <div class="chat-input">
+
+
+      <input
+
+        id="userInput"
+
+        type="text"
+
+        placeholder="Talk to Babu..."
+
+        onkeydown="
+          if(event.key==='Enter')
+          sendMessage()
+        "
+
+      >
+
+
+      <button
+        class="send"
+        onclick="sendMessage()">
+
+        ➤
+
+      </button>
+
+
+    </div>
+
+
+  </div>
+
+
+
+  <div
+    class="panel"
+    style="margin-top:20px">
+
+
+    <div class="panel-title">
+      System
+    </div>
+
+
+    <div class="memory">
+
+      🟢 <b>AI Core</b>
+
+      <br>
+
+      <small>
+        Online
+      </small>
+
+    </div>
+
+
+    <div class="memory">
+
+      🎤 <b>Voice System</b>
+
+      <br>
+
+      <small id="voiceStatus">
+        Starting...
+      </small>
+
+    </div>
+
+
+    <div class="memory">
+
+      🧠 <b>Memory</b>
+
+      <br>
+
+      <small>
+        Active
+      </small>
+
+    </div>
+
+
+    <button
+      class="small-btn"
+      onclick="settings()">
+
+      ⚙️ Settings
+
+    </button>
+
+
+  </div>
+
+
+</div>
+
+
+</div>
+
+
+
 <script>
 
-/* CHAT */
 
-function sendMessage(){
-
-  const input=document.getElementById("userInput");
-  const text=input.value.trim();
-
-  if(!text) return;
-
-  addMessage(text,"user");
-
-  input.value="";
-
-  setTimeout(()=>{
-
-    let reply="I'm listening 💜 Tell me what you need.";
-
-    const lower=text.toLowerCase();
-
-    if(lower.includes("hello") || lower.includes("hi")){
-      reply="Hello! 😊 I'm Babu. Nice to talk with you.";
-    }
-
-    else if(lower.includes("time")){
-      reply="The current time is "+new Date().toLocaleTimeString();
-    }
-
-    else if(lower.includes("date")){
-      reply="Today is "+new Date().toLocaleDateString();
-    }
-
-    else if(lower.includes("youtube")){
-      reply="Opening YouTube for you ▶️";
-      youtube();
-    }
-
-    else if(lower.includes("google")){
-      reply="Opening Google 🔎";
-      google();
-    }
-
-    addMessage(reply,"babu");
-
-    speak(reply);
-
-  },500);
-}
+/* =====================================================
+   BABU AI VOICE SYSTEM
+   ===================================================== */
 
 
-function addMessage(text,type){
+let recognition = null;
 
-  const box=document.getElementById("messages");
+let listening = false;
 
-  const div=document.createElement("div");
+let speaking = false;
 
-  div.className="message "+type;
-
-  div.innerText=text;
-
-  box.appendChild(div);
-
-  box.scrollTop=box.scrollHeight;
-}
+let autoListen = true;
 
 
-/* VOICE */
+/* Speech Recognition */
 
-function speak(text){
-
-  if("speechSynthesis" in window){
-
-    const speech=new SpeechSynthesisUtterance(text);
-
-    speech.rate=.95;
-    speech.pitch=1.05;
-
-    speech.lang="en-IN";
-
-    speech.onstart=()=>{
-      document.getElementById("voiceStatus").innerText="Speaking...";
-      document.getElementById("statusText").innerText="Babu is speaking...";
-    };
-
-    speech.onend=()=>{
-      document.getElementById("voiceStatus").innerText="Ready";
-      document.getElementById("statusText").innerText="How can I help you?";
-    };
-
-    speechSynthesis.speak(speech);
-
-  }
-
-}
+const SpeechRecognition =
+  window.SpeechRecognition ||
+  window.webkitSpeechRecognition;
 
 
-/* MICROPHONE */
 
-function startVoice(){
+/* =====================================================
+   CREATE MICROPHONE
+   ===================================================== */
 
-  const SpeechRecognition =
-    window.SpeechRecognition ||
-    window.webkitSpeechRecognition;
+function createRecognition(){
+
 
   if(!SpeechRecognition){
 
-    speak("Voice recognition is not supported on this browser.");
+    document.getElementById("voiceStatus").innerText =
+      "Not supported";
 
-    return;
+    document.getElementById("statusText").innerText =
+      "Voice recognition is not supported.";
+
+    return null;
+
   }
 
-  const recognition=new SpeechRecognition();
 
-  recognition.lang="en-IN";
+  const r =
+    new SpeechRecognition();
 
-  recognition.start();
 
-  document.getElementById("voiceStatus").innerText="Listening...";
-  document.getElementById("statusText").innerText="I'm listening... 🎤";
+  r.lang = "en-IN";
 
-  recognition.onresult=function(event){
+  r.continuous = false;
 
-    const text=event.results[0][0].transcript;
+  r.interimResults = false;
 
-    document.getElementById("userInput").value=text;
+
+
+  /* LISTENING START */
+
+  r.onstart = function(){
+
+
+    listening = true;
+
+
+    document.getElementById("voiceStatus").innerText =
+      "Listening...";
+
+
+    document.getElementById("statusText").innerText =
+      "I'm listening... 🎤";
+
+
+    document.getElementById("voiceButton")
+      .classList.add("listening-btn");
+
+
+    document.getElementById("aiArea")
+      .classList.add("listening");
+
+  };
+
+
+
+  /* RESULT */
+
+  r.onresult = function(event){
+
+
+    const text =
+      event.results[0][0]
+      .transcript
+      .trim();
+
+
+    document.getElementById("userInput").value =
+      text;
+
+
+    document.getElementById("voiceStatus").innerText =
+      "Processing...";
+
 
     sendMessage();
 
   };
 
-  recognition.onend=function(){
 
-    document.getElementById("voiceStatus").innerText="Ready";
+
+  /* ERROR */
+
+  r.onerror = function(event){
+
+
+    listening = false;
+
+
+    document.getElementById("voiceButton")
+      .classList.remove("listening-btn");
+
+
+    document.getElementById("aiArea")
+      .classList.remove("listening");
+
+
+    document.getElementById("voiceStatus").innerText =
+      "Ready";
+
+
+    /*
+      Agar browser recognition ko stop kar deta hai,
+      Babu thodi der baad dobara try karegi.
+    */
+
+    if(
+      autoListen &&
+      !speaking
+    ){
+
+      setTimeout(
+        startAutoListening,
+        1500
+      );
+
+    }
 
   };
 
-}
 
 
-/* QUICK COMMANDS */
+  /* END */
 
-function youtube(){
+  r.onend = function(){
 
-  window.open("https://www.youtube.com","_blank");
 
-  speak("Opening YouTube.");
+    listening = false;
 
-}
 
-function google(){
+    document.getElementById("voiceButton")
+      .classList.remove("listening-btn");
 
-  window.open("https://www.google.com","_blank");
 
-  speak("Opening Google.");
+    document.getElementById("aiArea")
+      .classList.remove("listening");
 
-}
 
-function showTime(){
+    if(
+      autoListen &&
+      !speaking
+    ){
 
-  const now=new Date();
+      setTimeout(
+        startAutoListening,
+        700
+      );
 
-  const message=
-    "Current time is "+
-    now.toLocaleTimeString()+
-    ". Today is "+
-    now.toLocaleDateString();
+    }
 
-  addMessage(message,"babu");
+  };
 
-  speak(message);
 
-}
-
-function music(){
-
-  speak("Music mode is ready. Music player will be connected here.");
+  return r;
 
 }
 
-function aiChat(){
 
-  document.getElementById("userInput").focus();
 
-  speak("AI chat is ready. Ask me anything.");
+/* =====================================================
+   START AUTOMATIC LISTENING
+   ===================================================== */
 
-}
+function startAutoListening(){
 
-function addMemory(){
 
-  const memory=prompt("Enter your memory:");
+  if(
+    !autoListen ||
+    speaking ||
+    listening
+  ){
 
-  if(memory){
+    return;
 
-    const box=document.querySelectorAll(".panel")[2];
+  }
 
-    alert("Memory saved: "+memory);
+
+  if(!recognition){
+
+    recognition =
+      createRecognition();
+
+  }
+
+
+  if(!recognition){
+
+    return;
+
+  }
+
+
+  try{
+
+    recognition.start();
+
+  }
+
+  catch(error){
+
+    setTimeout(
+      startAutoListening,
+      1200
+    );
 
   }
 
 }
 
-function settings(){
 
-  speak("Settings panel will open here.");
 
-  alert("⚙️ Babu AI Settings\n\nVoice: ON\nMemory: ON\nTheme: Neon Dark");
+/* =====================================================
+   MANUAL MICROPHONE
+   ===================================================== */
+
+function startVoice(){
+
+
+  autoListen = true;
+
+
+  startAutoListening();
 
 }
+
+
+
+/* =====================================================
+   BABU SPEAK
+   ===================================================== */
+
+function speak(text){
+
+
+  if(
+    !("speechSynthesis" in window)
+  ){
+
+    return;
+
+  }
+
+
+  window.speechSynthesis.cancel();
+
+
+  speaking = true;
+
+
+  /*
+    Listening temporarily stop
+  */
+
+  if(
+    recognition &&
+    listening
+  ){
+
+    try{
+
+      recognition.stop();
+
+    }
+
+    catch(e){}
+
+  }
+
+
+
+  const speech =
+    new SpeechSynthesisUtterance(text);
+
+
+  speech.rate = .95;
+
+  speech.pitch = 1.05;
+
+  speech.lang = "en-IN";
+
+
+
+  /* SPEAK START */
+
+  speech.onstart = function(){
+
+
+    document.getElementById("voiceStatus").innerText =
+      "Speaking...";
+
+
+    document.getElementById("statusText").innerText =
+      "Babu is speaking...";
+
+
+    /*
+      👄 MOUTH ANIMATION ON
+    */
+
+    document
+      .getElementById("avatarWrap")
+      .classList.add("talking");
+
+  };
+
+
+
+  /* SPEAK END */
+
+  speech.onend = function(){
+
+
+    speaking = false;
+
+
+    /*
+      👄 MOUTH ANIMATION OFF
+    */
+
+    document
+      .getElementById("avatarWrap")
+      .classList.remove("talking");
+
+
+    document.getElementById("voiceStatus").innerText =
+      "Listening...";
+
+
+    document.getElementById("statusText").innerText =
+      "I'm listening... 🎤";
+
+
+    /*
+      Babu बोलेने के बाद
+      automatically सुनना शुरू करेगी
+    */
+
+    if(autoListen){
+
+      setTimeout(
+        startAutoListening,
+        500
+      );
+
+    }
+
+  };
+
+
+  window.speechSynthesis.speak(
+    speech
+  );
+
+}
+
+
+
+/* =====================================================
+   CHAT
+   ===================================================== */
+
+function sendMessage(){
+
+
+  const input =
+    document.getElementById("userInput");
+
+
+  const text =
+    input.value.trim();
+
+
+  if(!text){
+
+    return;
+
+  }
+
+
+  addMessage(
+    text,
+    "user"
+  );
+
+
+  input.value = "";
+
+
+
+  /*
+    Basic local response.
+    Real AI brain hum baad me connect karenge.
+  */
+
+  setTimeout(function(){
+
+
+    let reply =
+      "I'm listening, sir. Tell me what you need. 💜";
+
+
+    const lower =
+      text.toLowerCase();
+
+
+
+    if(
+      lower.includes("hello") ||
+      lower.includes("hi") ||
+      lower.includes("hey")
+    ){
+
+      reply =
+        "Hello sir! 😊 I am Babu. How can I help you today?";
+
+    }
+
+
+
+    else if(
+      lower.includes("who are you") ||
+      lower.includes("your name")
+    ){
+
+      reply =
+        "I am Babu, your personal AI assistant. 💜";
+
+    }
+
+
+
+    else if(
+      lower.includes("how are you")
+    ){
+
+      reply =
+        "I am doing great, sir. Thank you for asking. 😊";
+
+    }
+
+
+
+    else if(
+      lower.includes("time")
+    ){
+
+      reply =
+        "Sir, the current time is " +
+        new Date().toLocaleTimeString(
+          "en-IN"
+        );
+
+    }
+
+
+
+    else if(
+      lower.includes("date") ||
+      lower.includes("today")
+    ){
+
+      reply =
+        "Today is " +
+        new Date().toLocaleDateString(
+          "en-IN"
+        );
+
+    }
+
+
+
+    else if(
+      lower.includes("youtube")
+    ){
+
+      reply =
+        "Opening YouTube for you, sir. ▶️";
+
+      youtube();
+
+    }
+
+
+
+    else if(
+      lower.includes("google")
+    ){
+
+      reply =
+        "Opening Google for you, sir. 🔎";
+
+      google();
+
+    }
+
+
+
+    else if(
+      lower.includes("thank")
+    ){
+
+      reply =
+        "You're welcome, sir. 💜";
+
+    }
+
+
+
+    addMessage(
+      reply,
+      "babu"
+    );
+
+
+    speak(reply);
+
+
+  },500);
+
+}
+
+
+
+/* =====================================================
+   ADD CHAT MESSAGE
+   ===================================================== */
+
+function addMessage(
+  text,
+  type
+){
+
+
+  const box =
+    document.getElementById("messages");
+
+
+  const div =
+    document.createElement("div");
+
+
+  div.className =
+    "message " + type;
+
+
+  div.innerText =
+    text;
+
+
+  box.appendChild(div);
+
+
+  box.scrollTop =
+    box.scrollHeight;
+
+}
+
+
+
+/* =====================================================
+   QUICK COMMANDS
+   ===================================================== */
+
+function youtube(){
+
+
+  window.open(
+    "https://www.youtube.com",
+    "_blank"
+  );
+
+
+  speak(
+    "Opening YouTube."
+  );
+
+}
+
+
+
+function google(){
+
+
+  window.open(
+    "https://www.google.com",
+    "_blank"
+  );
+
+
+  speak(
+    "Opening Google."
+  );
+
+}
+
+
+
+function showTime(){
+
+
+  const now =
+    new Date();
+
+
+  const message =
+    "Sir, the current time is " +
+    now.toLocaleTimeString("en-IN") +
+    ". Today is " +
+    now.toLocaleDateString("en-IN");
+
+
+  addMessage(
+    message,
+    "babu"
+  );
+
+
+  speak(
+    message
+  );
+
+}
+
+
+
+function music(){
+
+
+  speak(
+    "Music mode is ready, sir. The music player will be connected here."
+  );
+
+}
+
+
+
+function aiChat(){
+
+
+  document
+    .getElementById("userInput")
+    .focus();
+
+
+  speak(
+    "AI chat is ready, sir. Ask me anything."
+  );
+
+}
+
+
+
+/* =====================================================
+   MEMORY
+   ===================================================== */
+
+function addMemory(){
+
+
+  const memory =
+    prompt(
+      "Enter your memory:"
+    );
+
+
+  if(memory){
+
+
+    const box =
+      document.querySelectorAll(
+        ".panel"
+      )[1];
+
+
+    const newMemory =
+      document.createElement(
+        "div"
+      );
+
+
+    newMemory.className =
+      "memory";
+
+
+    newMemory.innerHTML =
+      "💜 <b>" +
+      memory +
+      "</b><br><small>Saved just now</small>";
+
+
+    box.insertBefore(
+      newMemory,
+      box.querySelector(
+        ".small-btn"
+      )
+    );
+
+
+    speak(
+      "Memory saved successfully, sir."
+    );
+
+  }
+
+}
+
+
+
+/* =====================================================
+   SETTINGS
+   ===================================================== */
+
+function settings(){
+
+
+  speak(
+    "Settings are ready, sir."
+  );
+
+
+  setTimeout(
+    function(){
+
+      alert(
+        "⚙️ BABU AI SETTINGS\n\n" +
+        "🎤 Auto Voice: ON\n" +
+        "🧠 AI Core: ONLINE\n" +
+        "💾 Memory: ACTIVE\n" +
+        "🎨 Theme: Neon Dark"
+      );
+
+    },
+    500
+  );
+
+}
+
+
+
+/* =====================================================
+   START BABU
+   ===================================================== */
+
+window.addEventListener(
+  "load",
+  function(){
+
+
+    document.getElementById(
+      "statusText"
+    ).innerText =
+      "Hello sir! I'm Babu. I'm listening...";
+
+
+    /*
+      Browser ko thoda time
+      dete hain page load hone ka.
+    */
+
+    setTimeout(
+      function(){
+
+        startAutoListening();
+
+      },
+      1500
+    );
+
+  }
+);
 
 </script>
 
 </body>
-</html>
+  </html>
