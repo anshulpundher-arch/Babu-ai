@@ -234,69 +234,6 @@ header{
 }
 
 
-/* ================= MOUTH ANIMATION ================= */
-
-/*
-  Ye basic talking animation hai.
-  Babu ke speaking time par activate hogi.
-*/
-
-.mouth{
-  position:absolute;
-
-  left:50%;
-  top:68%;
-
-  width:22px;
-  height:7px;
-
-  transform:translateX(-50%) scaleY(.5);
-
-  border-radius:50%;
-
-  background:#ff5c9a;
-
-  box-shadow:
-    0 0 8px rgba(255,80,150,.7);
-
-  opacity:0;
-  pointer-events:none;
-}
-
-.talking .mouth{
-  opacity:1;
-  animation:mouthTalk .15s infinite alternate;
-}
-
-.talking .ai-girl{
-  animation:faceTalk .7s infinite ease-in-out;
-}
-
-@keyframes mouthTalk{
-
-  0%{
-    transform:translateX(-50%) scaleY(.35);
-  }
-
-  100%{
-    transform:translateX(-50%) scaleY(1.7);
-  }
-
-}
-
-@keyframes faceTalk{
-
-  0%,100%{
-    transform:scale(1);
-  }
-
-  50%{
-    transform:scale(1.008);
-  }
-
-}
-
-
 /* ================= PLACEHOLDER ================= */
 
 .avatar-placeholder{
