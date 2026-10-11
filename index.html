@@ -707,48 +707,88 @@ function speak(text){
 
 }
 
+/* AUTO MICROPHONE */
 
-/* MICROPHONE */
+let recognition;
+let isListening = false;
+let lastVoiceError = "";
 
-function startVoice(){
-
+function startVoice() {
   const SpeechRecognition =
     window.SpeechRecognition ||
     window.webkitSpeechRecognition;
 
-  if(!SpeechRecognition){
-
-    speak("Voice recognition is not supported on this browser.");
-
+  if (!SpeechRecognition) {
+    document.getElementById("statusText").innerText =
+      "Voice recognition is not supported in this browser.";
     return;
   }
 
-  const recognition=new SpeechRecognition();
+  if (isListening) return;
 
-  recognition.lang="en-IN";
+  recognition = new SpeechRecognition();
+  recognition.lang = "hi-IN";
+  recognition.continuous = true;
+  recognition.interimResults = false;
 
-  recognition.start();
+  recognition.onstart = function () {
+    isListening = true;
+    lastVoiceError = "";
 
-  document.getElementById("voiceStatus").innerText="Listening...";
-  document.getElementById("statusText").innerText="I'm listening... 🎤";
+    const voiceStatus = document.getElementById("voiceStatus");
+    const statusText = document.getElementById("statusText");
 
-  recognition.onresult=function(event){
-
-    const text=event.results[0][0].transcript;
-
-    document.getElementById("userInput").value=text;
-
-    sendMessage();
-
+    if (voiceStatus) voiceStatus.innerText = "Listening...";
+    if (statusText) statusText.innerText = "Babu is listening 🎤";
   };
 
-  recognition.onend=function(){
+  recognition.onresult = function (event) {
+    const result = event.results[event.results.length - 1];
 
-    document.getElementById("voiceStatus").innerText="Ready";
+    if (result.isFinal) {
+      document.getElementById("userInput").value =
+        result[0].transcript;
 
+      sendMessage();
+    }
   };
 
+  recognition.onerror = function (event) {
+    lastVoiceError = event.error;
+    isListening = false;
+
+    const voiceStatus = document.getElementById("voiceStatus");
+    if (voiceStatus) {
+      voiceStatus.innerText = "Mic: " + event.error;
+    }
+  };
+
+  recognition.onend = function () {
+    isListening = false;
+
+    if (
+      lastVoiceError !== "not-allowed" &&
+      lastVoiceError !== "service-not-allowed" &&
+      lastVoiceError !== "audio-capture"
+    ) {
+      setTimeout(function () {
+        startVoice();
+      }, 1500);
+    }
+  };
+
+  try {
+    recognition.start();
+  } catch (error) {
+    isListening = false;
+  }
 }
+
+/* AUTO START WHEN WEBSITE OPENS */
+
+window.addEventListener("load", function () {
+  startVoice();
+});
 
 
 /* QUICK COMMANDS */
